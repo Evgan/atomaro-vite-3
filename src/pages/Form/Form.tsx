@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { ActionKeys, IGetTestData } from '../../store/ducks/global'
+import { Typography } from '@atomaro/ui-kit'
 
 
 const Form = () => {
@@ -20,7 +21,9 @@ const Form = () => {
   },[])
   return (
     <div>
-      Form
+      <Typography  variant="heading-h3">
+        Форма с всеми возможными компонентами ввода данных:
+      </Typography>
     </div>
   )
 }

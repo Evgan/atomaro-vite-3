@@ -1,0 +1,48 @@
+@mixin pressed-style() {
+  padding: 2px 12px!important;
+  height: 28px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0px 0px 1px rgba(28, 41, 61, 0.2), 0px 2px 4px rgba(28, 41, 61, 0.12) !important;
+  border-radius: 6px !important;
+}
+
+.container {
+
+}
+
+.segmentedControl {
+  height: 32px !important;
+  background-color: #f3f3f4 !important;
+  border-radius: 8px !important;
+  padding: 2px !important;
+  gap: 2px !important;
+}
+
+.segmentedControl [aria-pressed=true] {
+  @include pressed-style();
+}
+
+.segment {
+    &:focus-within {
+    outline: none !important;
+  }
+
+  &:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    @include pressed-style();
+  }
+
+  > span {
+    color: #101828 !important;
+   height: 20px !important;
+    font-family: 'Rostelecom Basis' !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    text-align: center !important;
+    font-feature-settings: 'tnum' on, 'lnum' on !important;
+    color: #101828 !important;
+  }
+}

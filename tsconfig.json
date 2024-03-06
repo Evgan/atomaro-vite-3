@@ -20,11 +20,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "paths": {
-      "UI/*": ["./src/components/pureComponents/UI/*"],
-      "TABLES/*": ["./src/components/Tables/*"],
-      "Pages/*": ["./src/pages/*"]
-    },
+//    "paths": {
+//      "UI/*": ["./src/components/pureComponents/UI/*"],
+//      "TABLES/*": ["./src/components/Tables/*"],
+//      "Pages/*": ["./src/pages/*"]
+//    },
     "types": ["node","vite/client"]
   },
   "include": ["src"],
