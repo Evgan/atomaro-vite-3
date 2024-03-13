@@ -38,10 +38,6 @@ export type ActionsType = ISetActivatedMenuItem | IGetTestData | ISetActivatedMe
  * reducer
  */
 export default function reducer(state: StateType = initialState, action: ActionsType): StateType {
-  console.log('RRRRRRRRRRRRRRRRRRR reducer')
-  console.log(' > action.type = ', action.type)
-  console.log(' > state:')
-  console.log(state)
   switch (action.type) {
     case ActionKeys.SET_ACTIVATED_MENU_ITEM:{
       return {
@@ -50,7 +46,6 @@ export default function reducer(state: StateType = initialState, action: Actions
       } as StateType
     }
     case ActionKeys.SET_ACTIVATED_MENU_ITEM_SUCCESS:{
-      console.log(' > action.payload?.menuItemLabel = ', action.payload?.menuItemLabel)
       return {
         ...state,
         activatedMenuItem: action.payload?.menuItemLabel
@@ -65,14 +60,13 @@ export default function reducer(state: StateType = initialState, action: Actions
  */
 function* getTestDataSaga(props: IGetTestData){
   try {
-    const {test} = props.payload
-    console.log('CALL getTestData() > test = ', test)
+    const {test} = props.payload || {}
     yield put({
       type: ActionKeys.SET_ACTIVATED_MENU_ITEM_SUCCESS,
       payload: {menuItemLabel: test}
     })
-  } catch (e: any) {
-    console.log('FAIL CALL getTestData() > e = ', e)
+  } catch (e: unknown) {
+    //console.log('FAIL CALL getTestData() > e = ', e)
   }
 }
 export function* saga() {

@@ -1,14 +1,11 @@
-import { Input } from '@atomaro/ui-kit'
-import s from './InputHOC.module.scss'
-import { IInputProps } from '@atomaro/ui-kit/components/Input/types'
-import React from 'react'
+//import s from './InputHOC.module.scss'
+import { Input } from '../../../../datacenter-systemdev-ui-lib/UI'
+import { IInput as IInput_dcSdLib } from '../../../../datacenter-systemdev-ui-lib/types'
 
 
-declare interface IInputHOC extends React.ForwardRefExoticComponent<IInputProps & React.RefAttributes<HTMLInputElement>>{
+declare interface IInput extends IInput_dcSdLib {}
 
-}
-
-const InputHOC = (props:IInputHOC) => {
+const InputHOC = (props: IInput) => {
   return (
     <Input
       {...props}

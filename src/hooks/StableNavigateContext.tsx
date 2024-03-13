@@ -1,10 +1,11 @@
 import { createContext, useContext, useRef, MutableRefObject } from 'react'
 import { useNavigate, NavigateFunction } from 'react-router-dom'
 
-const StableNavigateContext =
-  createContext<MutableRefObject<NavigateFunction> | null>(null)
-
-export const StableNavigateContextProvider = ({ children }) => {
+const StableNavigateContext = createContext<MutableRefObject<NavigateFunction> | null>(null)
+declare interface IStableNavigateContextProvider {
+  children: React.ReactNode
+}
+export const StableNavigateContextProvider = ({ children }:IStableNavigateContextProvider) => {
   const navigate = useNavigate()
   const navigateRef = useRef(navigate)
 
@@ -20,5 +21,5 @@ export const useStableNavigate = (): NavigateFunction => {
   if (navigateRef?.current === null)
     throw new Error('StableNavigate context is not initialized')
 
-  return navigateRef?.current!
+  return navigateRef?.current as NavigateFunction
 }

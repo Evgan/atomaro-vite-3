@@ -1,8 +1,7 @@
-import React  from 'react'
-import { FunctionButton } from '../../../../datacenter-systemdev-ui-lib'
+import { FunctionButton } from '../../../../datacenter-systemdev-ui-lib/UI'
 import {
   IFunctionButton
-} from '../../../../datacenter-systemdev-ui-lib/components/UI/buttons/FunctionButton/FunctionButtonHOC'
+} from '../../../../datacenter-systemdev-ui-lib/types'
 declare interface IFunctionButtonHOC extends IFunctionButton{}
 const FunctionButtonHOC = (props:IFunctionButtonHOC) => {
   return (

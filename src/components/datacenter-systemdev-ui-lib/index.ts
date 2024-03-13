@@ -1,15 +1,7 @@
-import {
-  FunctionButton,
-  SegmentedControl
-} from './components/UI'
-
-import SegmentedMenu from './components/menus/SegmentedMenu/SegmentedMenu'
-
+import SegmentedMenu from './src/components/menus/SegmentedMenu/SegmentedMenu'
+import Form from './src/components/Form/FormHOC.tsx'
 
 export {
-  //UI
-  FunctionButton,
-  SegmentedControl,
-  // components
-  SegmentedMenu
+  SegmentedMenu,
+  Form
 }

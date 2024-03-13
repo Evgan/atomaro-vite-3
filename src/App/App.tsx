@@ -5,13 +5,13 @@ import { Provider } from 'react-redux'
 import './App.css'
 import '@atomaro/ui-kit/theme/default-light.css'
 import Table from '../pages/Table/Table'
-import Form from '../pages/Form/Form'
 import Home from '../pages/Home/Home'
 import Menu from '../components/Menu/Menu'
 
-import { store, history } from "../store/reducers/store";
+import { store, history } from "../store";
 import { StableNavigateContextProvider } from '../hooks/StableNavigateContext'
 import { StableLocationContextProvider } from '../hooks/StableLocationContext'
+import FormTest from '../pages/Form/FormTest'
 
 
 
@@ -33,7 +33,7 @@ function App() {
                   />
                   <Route
                     path='/form'
-                    element={<Form />}
+                    element={<FormTest />}
                     key={'Form'}
                   />
                   <Route

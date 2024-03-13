@@ -1,9 +1,8 @@
-import React from 'react'
-import { SegmentedControl } from '../../../datacenter-systemdev-ui-lib'
+import { SegmentedControl } from '../../../datacenter-systemdev-ui-lib/UI'
 import {
-  ISegmentedControlHOC as ISegmentedControl_dcSdLib,
+  ISegmentedControl as ISegmentedControl_dcSdLib,
   ISegment as ISegment_dcSdLib
-} from '../../../datacenter-systemdev-ui-lib/components/UI/SegmentedControl/SegmentedControlHOC'
+} from '../../../datacenter-systemdev-ui-lib/types'
 
 export interface ISegment extends ISegment_dcSdLib {}
 export interface ISegmentedControl extends ISegmentedControl_dcSdLib {}
