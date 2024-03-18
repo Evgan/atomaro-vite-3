@@ -1,6 +1,17 @@
 .formcontent {
   width: 500px;
   height: 600px;
-  border: 1px solid #101828;
+  //border: 1px solid #101828;
   margin: 10px;
+}
+
+.inputForForm {
+  background-color: #f3f3f4 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  > input {
+    font-family: 'Rostelecom Basis' !important;
+    font-size: 16px !important;
+    color: #101828 !important;
+  }
 }

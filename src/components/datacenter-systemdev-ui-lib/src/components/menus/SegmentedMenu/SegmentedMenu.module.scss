@@ -1,4 +1,4 @@
-@mixin pressed-style() {
+%pressed-style {
   padding: 2px 12px!important;
   height: 28px !important;
   background: #FFFFFF !important;
@@ -19,7 +19,7 @@
 }
 
 .segmentedControl [aria-pressed=true] {
-  @include pressed-style();
+  @extend %pressed-style;
 }
 
 .segment {
@@ -30,7 +30,7 @@
   &:hover {
     outline: none !important;
     box-shadow: none !important;
-    @include pressed-style();
+    @extend %pressed-style;
   }
 
   > span {

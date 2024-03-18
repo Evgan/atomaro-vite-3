@@ -1,3 +1,4 @@
+import { BoolType } from "../../helpers/CommonTypes"
 
 export declare type FilePickerDataType = {
     file: File

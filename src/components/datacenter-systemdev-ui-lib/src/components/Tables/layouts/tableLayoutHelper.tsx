@@ -6,25 +6,25 @@
 // import { UI_STYLE_CONFIG } from '../../UI/constants'
 // import { convert_1_0_toBool } from '../../../helpers/conditionsHelpers'
 // import RowMenu, { menuSettingsDefault, MenuSettingsType } from '../tableElements/RowMenu/RowMenu'
-import { BoolType } from '../../../helpers/CommonTypes'
+// import { BoolType } from '../../../helpers/CommonTypes'
 // import EditableCell from '../tableElements/EditableCell/EditableCell'
 // import OpenSubTable from '../tableElements/OpenSubTable/OpenSubTable'
 //
-export type HeaderTableType = {
-    name?: string,
-    editable?: BoolType,
-    nullable?: BoolType,
-    visible?: BoolType,
-    visibleInAdd?: BoolType,
-    list?: string[],
-    type?: "link" | 'editableCell',
-    default?: string
-}
+// export type HeaderTableType = {
+//     name?: string,
+//     editable?: BoolType,
+//     nullable?: BoolType,
+//     visible?: BoolType,
+//     visibleInAdd?: BoolType,
+//     list?: string[],
+//     type?: "link" | 'editableCell',
+//     default?: string
+// }
 
-export type HeadersTableType = {
-    [id: string]: HeaderTableType
-}
-
+// export type HeadersTableType = {
+//     [id: string]: HeaderTableType
+// }
+// 
 // export enum OPERATOR_TABLE_FILTER {
 //     equal = 'equal',
 //     start = 'start',

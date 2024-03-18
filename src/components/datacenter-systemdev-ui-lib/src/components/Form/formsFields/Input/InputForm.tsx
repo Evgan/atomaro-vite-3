@@ -13,6 +13,7 @@ import {
   ITransformationRule
 } from '../../types.ts'
 import { IInputHOC } from '../../../../UI/inputs/Input/InputHOC.tsx'
+import s from './InputForm.module.scss'
 
 
 declare interface IInputForm extends ItemFormType, IInputHOC{
@@ -39,7 +40,6 @@ const InputForm = ({
     validationRules = [],
     transformationRule,
     disabled = false,
-    size,
     tooltip,
     useForm
 }: IInputForm) => {
@@ -80,6 +80,8 @@ const InputForm = ({
     return (
         <div className={className}>
             <Input
+                size='l'
+                classNameInputWrapper={s.inputForForm}
                 type={typeState}
                 name={name}
                 value={value?.toString()}
@@ -92,7 +94,6 @@ const InputForm = ({
                 validationRules={validationRules!}
                 transformationRule={transformationRule!}
                 disabled={disabled!}
-                size={size}
                 tooltip={tooltip}
                 iconSuffix={icon}
                 onClickIconPrefix={() => setShowPass(!showPass)}

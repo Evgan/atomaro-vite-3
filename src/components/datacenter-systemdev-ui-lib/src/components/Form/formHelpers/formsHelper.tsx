@@ -1,5 +1,4 @@
 import { valueIsNotEmpty } from '../../../helpers/conditionsHelpers.ts'
-import { HeadersTableType, HeaderTableType } from '../../Tables/layouts/tableLayoutHelper'
 
 
 import { FormType, ITransformationRule, IValidationRules } from '../types'
@@ -8,9 +7,25 @@ import InputField from '../formsFields/Input/InputField.tsx'
 import InputForm from '../formsFields/Input/InputForm.tsx'
 import { TYPES_INPUT } from '../../../UI/constants.ts'
 
-export const formFieldIsRequired = (id: string, headers: HeadersTableType): boolean => headers?.[id]?.nullable === 0
-export const getFormFieldError = (id: string, headers: HeadersTableType): string => `Введите значение поля ${headers?.[id]?.name || id}`
-export const getFormLabel = (id: string, headers: HeadersTableType): string => headers?.[id]?.name || id
+
+export type FormFieldPropsType = {
+  name?: string,
+  editable?: BoolType,
+  nullable?: BoolType,
+  visible?: BoolType,
+  visibleInAdd?: BoolType,
+  list?: string[],
+  type?: "link" | 'editableCell',
+  default?: string
+}
+
+export type FormFieldsPropsType = {
+  [id: string]: FormFieldPropsType
+}
+
+export const formFieldIsRequired = (id: string, formFieldsProps: FormFieldsPropsType): boolean => formFieldsProps?.[id]?.nullable === 0
+export const getFormFieldError = (id: string, formFieldsProps: FormFieldsPropsType): string => `Введите значение поля ${formFieldsProps?.[id]?.name || id}`
+export const getFormLabel = (id: string, formFieldsProps: FormFieldsPropsType): string => formFieldsProps?.[id]?.name || id
 
 export type WarningType = {
   fieldName: string,
@@ -26,12 +41,12 @@ declare type ObjectType = {
 export const getErrorsValidate = (
   fields: string[],
   values: ObjectType,
-  headers: HeadersTableType
+  formFieldsProps: FormFieldsPropsType
 ): ObjectType => {
   const errors: ObjectType = {}
   fields.map(field => {
-    if (formFieldIsRequired(field, headers) && !valueIsNotEmpty(values[field])) {
-      errors[field] = getFormFieldError(field, headers)
+    if (formFieldIsRequired(field, formFieldsProps) && !valueIsNotEmpty(values[field])) {
+      errors[field] = getFormFieldError(field, formFieldsProps)
     }
   })
   return errors
@@ -114,8 +129,8 @@ export const getErrorsStepper = ({
   return ''
 }
 
-export const isDisabledFormItem = (mode: FormModeType, headerProps: HeaderTableType, isFetching: boolean): boolean => {
-  if (mode === FormModes.EDITING && headerProps.editable === 0) {
+export const isDisabledFormItem = (mode: FormModeType, formFieldProps: FormFieldPropsType, isFetching: boolean): boolean => {
+  if (mode === FormModes.EDITING && formFieldProps.editable === 0) {
     return true
   }
   return isFetching
@@ -150,7 +165,7 @@ export type InputOptionsTyp = {
   type?: keyof typeof TYPES_INPUT
 }
 
-export interface IInput extends IItem<FIELDS_TYPE.INPUT, InputOptionsTyp> {
+export interface IFormFieldInput extends IItem<FIELDS_TYPE.INPUT, InputOptionsTyp> {
 }
 
 //
@@ -160,7 +175,7 @@ export type TextAreaOptionsTyp = {
   info?: string,
 }
 
-export interface ITextArea extends IItem<FIELDS_TYPE.TEXT_AREA, TextAreaOptionsTyp> {
+export interface IFormFieldTextArea extends IItem<FIELDS_TYPE.TEXT_AREA, TextAreaOptionsTyp> {
 }
 
 //
@@ -170,7 +185,7 @@ export type FilePickerOptionsTyp = {
   accept?: string
 }
 
-export interface IFilePicker extends IItem<FIELDS_TYPE.FILE_PICKER, FilePickerOptionsTyp> {
+export interface IFormFieldFilePicker extends IItem<FIELDS_TYPE.FILE_PICKER, FilePickerOptionsTyp> {
 }
 
 //
@@ -182,7 +197,7 @@ export type InputAmountOptionsTyp = {
   maxlength?: number
 }
 
-export interface IInputAmount extends IItem<FIELDS_TYPE.INPUT_AMOUNT, InputAmountOptionsTyp> {
+export interface IFormFieldInputAmount extends IItem<FIELDS_TYPE.INPUT_AMOUNT, InputAmountOptionsTyp> {
 }
 
 //
@@ -197,7 +212,7 @@ export type DatePickerOptionsTyp = {
   maxYear?: number,
 }
 
-export interface IDatePicker extends IItem<FIELDS_TYPE.DATE_PICKER, DatePickerOptionsTyp> {
+export interface IFormFieldDatePicker extends IItem<FIELDS_TYPE.DATE_PICKER, DatePickerOptionsTyp> {
 }
 
 //
@@ -209,7 +224,7 @@ export type SelectOptionsTyp = {
   nullable?: BoolType
 }
 
-export interface ISelect extends IItem<FIELDS_TYPE.SELECT, SelectOptionsTyp> {
+export interface IFormFieldSelect extends IItem<FIELDS_TYPE.SELECT, SelectOptionsTyp> {
 }
 
 //
@@ -222,7 +237,7 @@ export type MultiSelectOptionsTyp = {
   info?: string
 }
 
-export interface IMultiSelect extends IItem<FIELDS_TYPE.MULTI_SELECT, MultiSelectOptionsTyp> {
+export interface IFormFieldMultiSelect extends IItem<FIELDS_TYPE.MULTI_SELECT, MultiSelectOptionsTyp> {
 }
 
 //
@@ -231,24 +246,24 @@ export type SwitchOptionsTyp = {
   switchVarValues?: { on: string, off: string }
 }
 
-export interface ISwitch extends IItem<FIELDS_TYPE.SWITCH, SwitchOptionsTyp> {
+export interface IFormFieldSwitch extends IItem<FIELDS_TYPE.SWITCH, SwitchOptionsTyp> {
 }
 
 //
-export interface IStepper extends IItem<FIELDS_TYPE.STEPPER, string> {
+export interface IFormFieldStepper extends IItem<FIELDS_TYPE.STEPPER, string> {
 }
 
 //
-export type ItemType =
-  IInput
-  | IInputAmount
-  | ISelect
-  | IMultiSelect
-  | ISwitch
-  | IStepper
-  | IDatePicker
-  | ITextArea
-  | IFilePicker
+export type FormFieldDataType =
+  IFormFieldInput
+  | IFormFieldInputAmount
+  | IFormFieldSelect
+  | IFormFieldMultiSelect
+  | IFormFieldSwitch
+  | IFormFieldStepper
+  | IFormFieldDatePicker
+  | IFormFieldTextArea
+  | IFormFieldFilePicker
 
 export enum FormModes {
   EDITING = 'EDITING',
@@ -258,14 +273,6 @@ export enum FormModes {
 }
 
 export type FormModeType = keyof typeof FormModes
-
-export type GetFormItemType = FormType & {
-  mode: FormModeType,
-  itemTypeData: ItemType,
-  name: string,
-  headerProps: HeaderTableType,
-  isFetching: boolean
-}
 
 //-----------------------------
 // export  interface IDynamicFieldProps <T, D> {
@@ -283,60 +290,67 @@ export type DynamicFieldPropsType = DynamicFieldPropsSelectTyp
 //-----------------------------
 declare type FormItemIsShowType = {
   mode: FormModeType,
-  header: HeaderTableType
+  formFieldProps: FormFieldPropsType
 }
-export const formItemIsShow = ({
+export const formFieldIsShow = ({
                                  mode,
-                                 header
+                                 formFieldProps
                                }: FormItemIsShowType): boolean => {
   if (mode === 'CREATION' || mode === 'ADD') {
-    if ('visibleInAdd' in header) {
-      return header.visibleInAdd === 1
+    if ('visibleInAdd' in formFieldProps) {
+      return formFieldProps.visibleInAdd === 1
     } else {
-      return header.visible === 1
+      return formFieldProps.visible === 1
     }
   }
   return true
 }
 
 //-----------------------------
-export type FormItemType = {
-  headerName: string,
-  header: HeaderTableType,
+export type FormFieldType = {
+  fieldId: string,
+  formFieldProps: FormFieldPropsType
   isFetching?: boolean,
   mode?: FormModeType,
 }
-export const getFormItem = (
+export type GetFormFieldType = FormType & {
+  mode: FormModeType,
+  formFieldData: FormFieldDataType,
+  fieldId: string,
+  formFieldProps: FormFieldPropsType,
+  isFetching: boolean
+}
+export const getFormField= (
   {
     mode,
-    itemTypeData,
-    name,
-    headerProps,
+    formFieldData,
+    fieldId,
+    formFieldProps,
     isFetching,
     Field,
     useForm,
     //callbackHandlerChangeField
-  }: GetFormItemType
+  }: GetFormFieldType
 ): JSX.Element => {
-  const label: string = `${headerProps.name} (${name})`
-  switch (itemTypeData?.type) {
+  const label: string = `${formFieldProps.name} (${fieldId})`
+  switch (formFieldData?.type) {
     case FIELDS_TYPE.INPUT: {
       const {
         validationRules,
         transformationRule,
         hint,
         type
-      } = itemTypeData.props || {}
+      } = formFieldData.props || {}
       return <InputField
-        name={name}
-        key={`FormItem_${name}`}
+        name={fieldId}
+        key={`FormItem_${fieldId}`}
         label={label}
         validationRules={validationRules}
         transformationRule={transformationRule}
         hint={hint}
         component={InputForm}
         type={type || TYPES_INPUT.text}
-        disabled={itemTypeData?.props?.disabled || isDisabledFormItem(mode, headerProps, isFetching)}
+        disabled={formFieldData?.props?.disabled || isDisabledFormItem(mode, formFieldProps, isFetching)}
         Field={Field}
         useForm={useForm}
       />
